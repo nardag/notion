@@ -3,132 +3,265 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Days Lived</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Montserrat:900">
-    <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Montserrat:900">
-    <a href="birth.html"/a>
-    <title>Document</title>
     <style>
-
-body{
-    background-color: black;
-}
-  
-#timer {
-  color: #eeeeee;
-  text-align: center;
-  text-transform: uppercase;
-  font-family: 'Lato', sans-serif;
-  font-size: .4em;
-  letter-spacing: 5px;
-}
-
-.days, .hours, .minutes, .seconds {
-  display: inline-block;
-  padding: 20px;
-  width: 100px;
-  border-radius: 5px;
-}
-
-.days {
-  background: #c80815;
-}
-
-.hours {
-  background: #eeeeee;
-  color: #000000;
-}
-
-.minutes {
-  background: #276FBF;
-}
-
-.seconds {
-  background: #F0A202;
-}
-
-.numbers {
-  font-family: 'Montserrat', sans-serif;
-  color:  #000000;
-  font-size: 4em;
-  text-align: center;
-}
-
-.white {
-  position: absolute;
-  background:  #eeeeee;
-  height: 85px;
-  width: 75px;
-  left: 30%;
-  top: 2%;
-}
-
-.red {
-  position: absolute;
-  background:  #c80815;
-  left: 18%;
-  top: 9%;
-  height: 85px;
-  width: 75px;
- 
-}
-
-.black {
-  position: absolute;
-  background:  #000000;
-  height: 80px;
-  width: 80px;
-  left: 60%;
-  top: 5%;
-
-
-}
-
-
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Lato', sans-serif;
+        }
+        
+        .timer-line {
+            background: #c80815;
+            border-radius: 8px;
+            padding: 20px 30px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 10px 25px rgba(200, 8, 21, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .total-days {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3.5em;
+            font-weight: 900;
+            color: black;
+            margin-right: 15px;
+            min-width: 120px;
+            text-align: center;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .days-label {
+            color: white;
+            font-size: 1.3em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-right: 25px;
+            white-space: nowrap;
+            font-weight: 700;
+        }
+        
+        .breakdown {
+            display: flex;
+            align-items: center;
+            border-left: 2px solid rgba(0, 0, 0, 0.2);
+            padding-left: 25px;
+            height: 100%;
+        }
+        
+        .time-unit {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 12px;
+            min-width: 50px;
+        }
+        
+        .unit-value {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2em;
+            font-weight: 900;
+            color: black;
+            line-height: 1;
+        }
+        
+        .unit-label {
+            font-size: 0.8em;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 5px;
+            font-weight: 700;
+        }
+        
+        .separator {
+            font-size: 1.5em;
+            color: rgba(0, 0, 0, 0.3);
+            margin: 0 5px;
+            font-weight: bold;
+        }
+        
+        .birth-date {
+            position: absolute;
+            bottom: 15px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9em;
+            width: 100%;
+            text-align: center;
+            left: 0;
+        }
+        
+        .birth-date span {
+            color: white;
+            font-weight: bold;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        
+        .decoration {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            opacity: 0.1;
+        }
+        
+        .circle-1 {
+            background: white;
+            top: -30px;
+            right: -30px;
+            width: 120px;
+            height: 120px;
+        }
+        
+        .circle-2 {
+            background: black;
+            bottom: -20px;
+            left: -20px;
+            width: 70px;
+            height: 70px;
+        }
+        
+        .circle-3 {
+            background: #276FBF;
+            top: 50%;
+            left: 20px;
+            width: 40px;
+            height: 40px;
+        }
+        
+        @media (max-width: 768px) {
+            .timer-line {
+                flex-direction: column;
+                padding: 25px 20px;
+                text-align: center;
+            }
+            
+            .days-label {
+                margin: 15px 0;
+                padding-top: 15px;
+                width: 100%;
+                border-top: 1px solid rgba(0, 0, 0, 0.2);
+            }
+            
+            .breakdown {
+                border-left: none;
+                border-top: 1px solid rgba(0, 0, 0, 0.2);
+                padding-left: 0;
+                padding-top: 15px;
+                width: 100%;
+            }
+            
+            .separator {
+                transform: rotate(90deg);
+                margin: 5px 0;
+            }
+        }
     </style>
 </head>
 <body>
+    <div class="timer-line">
+        <div class="decoration circle-1"></div>
+        <div class="decoration circle-2"></div>
+        <div class="decoration circle-3"></div>
+        
+        <div class="total-days" id="total-days">0</div>
+        <div class="days-label">days lived</div>
+        
+        <div class="breakdown">
+            <div class="time-unit">
+                <div class="unit-value" id="years">0</div>
+                <div class="unit-label">Years</div>
+            </div>
+            
+            <span class="separator">:</span>
+            
+            <div class="time-unit">
+                <div class="unit-value" id="months">0</div>
+                <div class="unit-label">Months</div>
+            </div>
+            
+            <span class="separator">:</span>
+            
+            <div class="time-unit">
+                <div class="unit-value" id="weeks">0</div>
+                <div class="unit-label">Weeks</div>
+            </div>
+            
+            <span class="separator">:</span>
+            
+            <div class="time-unit">
+                <div class="unit-value" id="days">0</div>
+                <div class="unit-label">Days</div>
+            </div>
+        </div>
+    </div>
     
-<div id="timer">
-
-    <div class="days"> 
-        <div id="days" class="numbers "> </div>days lived</div> 
-     
-</div>
-
+    <div class="birth-date">
+        Born on <span>September 13, 1995</span>
+    </div>
+    
+    <script>
+        const birthDate = new Date('September 13, 1995 00:00:00');
+        
+        function calculateTimeDifference() {
+            const today = new Date();
+            let diff = Math.abs(today - birthDate);
+            
+            // Calculate total days
+            let totalDays = Math.floor(diff / (1000 * 60 * 60 * 24));
+            
+            // Calculate years
+            let years = Math.floor(totalDays / 365);
+            let remainingDays = totalDays % 365;
+            
+            // Calculate months
+            let months = Math.floor(remainingDays / 30);
+            remainingDays = remainingDays % 30;
+            
+            // Calculate weeks
+            let weeks = Math.floor(remainingDays / 7);
+            
+            // Calculate remaining days
+            let days = remainingDays % 7;
+            
+            return { 
+                totalDays,
+                years, 
+                months, 
+                weeks, 
+                days
+            };
+        }
+        
+        function updateTimer() {
+            const { totalDays, years, months, weeks, days } = calculateTimeDifference();
+            
+            // Update elements
+            document.getElementById("total-days").textContent = totalDays;
+            document.getElementById("years").textContent = years;
+            document.getElementById("months").textContent = months;
+            document.getElementById("weeks").textContent = weeks;
+            document.getElementById("days").textContent = days;
+        }
+        
+        // Initial update
+        updateTimer();
+        
+        // Update every second
+        setInterval(updateTimer, 1000);
+    </script>
 </body>
-<script>
-    const year = new Date().getFullYear();
-const myDate = new Date('September 13, 1995 00:00:00');
-console.log(myDate);
-
-// countdown
-let timer = setInterval(function() {
-
-  // get today's date
-  const today = new Date().getTime();
-
-  // get the difference
-  const diff = Math.abs(today - myDate);
-
-  // math
-  let days = Math.floor(diff / (1000 * 60 * 60 * 24));
-  let hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  let minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-  let seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-  // display
-  document.getElementById("days").innerHTML=days
-  document.getElementById("hours").innerHTML=hours
-  document.getElementById("minutes").innerHTML=minutes
-  document.getElementById("seconds").innerHTML=seconds
-
-
-
-}, 1);
-</script>
 </html>
