@@ -27,13 +27,25 @@ body{
   letter-spacing: 5px;
 }
 
-.days, .hours, .minutes, .seconds {
+.years, .months, .weeks, .days, .hours, .minutes, .seconds {
   display: inline-block;
   padding: 20px;
   width: 100px;
   border-radius: 5px;
 }
 
+.years {
+  background: #c80815;
+}
+
+.months {
+  background: #c80815;
+}
+        
+.weeks {
+background: #c80815;
+}
+        
 .days {
   background: #c80815;
 }
@@ -95,11 +107,22 @@ body{
     
 <div id="timer">
 
+
+    <div class="weeks"> 
+        <div id="weeks" class="numbers "> </div>weeks since fired</div> 
+     
+</div>
+
+
+    
     <div class="days"> 
         <div id="days" class="numbers "> </div>days since fired</div> 
      
 </div>
 
+
+
+    
 </body>
 <script>
     const year = new Date().getFullYear();
@@ -120,8 +143,14 @@ let timer = setInterval(function() {
   let hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   let minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
   let seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
+  let weeks = Math.floor(days/7);
+  let months = Math.floor(days/30.5);
+  let years = Math.floor(days/365);  
+    
   // display
+  document.getElementById("years").innerHTML=years
+  document.getElementById("months").innerHTML=months
+  document.getElementById("weeks").innerHTML=weeks
   document.getElementById("days").innerHTML=days
   document.getElementById("hours").innerHTML=hours
   document.getElementById("minutes").innerHTML=minutes
