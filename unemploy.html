@@ -6,231 +6,126 @@
     <title>Time Since Fired</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Montserrat:900">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
         body {
-            background: linear-gradient(135deg, #1a1a1a, #000000);
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            margin: 0;
             font-family: 'Lato', sans-serif;
-            color: #eee;
-            padding: 20px;
         }
         
-        .timer-container {
-            background: rgba(25, 25, 35, 0.9);
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-            width: 90%;
-            max-width: 700px;
-            padding: 40px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(200, 8, 21, 0.3);
-        }
-        
-        .timer-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(90deg, #c80815, #276FBF, #F0A202, #eeeeee);
-        }
-        
-        h1 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 2.8rem;
-            margin-bottom: 30px;
-            color: #c80815;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            text-shadow: 0 0 15px rgba(200, 8, 21, 0.5);
-        }
-        
-        .date-info {
-            color: #aaa;
-            font-size: 1.2rem;
-            margin-bottom: 40px;
-        }
-        
-        .date-info span {
-            color: #F0A202;
-            font-weight: bold;
-        }
-        
-        .time-display {
-            background: rgba(15, 15, 25, 0.7);
-            border-radius: 15px;
+        .timer-block {
+            background: #c80815;
+            border-radius: 8px;
             padding: 30px;
-            margin: 30px 0;
-            font-size: 2.2rem;
-            font-family: 'Montserrat', sans-serif;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
-            min-height: 120px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(200, 8, 21, 0.3);
+            width: 320px;
         }
         
-        .time-unit {
-            display: inline-block;
-            margin: 0 15px;
+        .total-days {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 5em;
+            color: white;
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .days-label {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1em;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            display: block;
+        }
+        
+        .breakdown {
+            background: rgba(0, 0, 0, 0.15);
+            border-radius: 6px;
+            padding: 15px;
+            color: white;
+        }
+        
+        .breakdown-title {
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .time-units {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .unit {
             text-align: center;
         }
         
-        .number {
-            font-size: 3.5rem;
-            font-weight: 900;
-            color: #fff;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-            min-width: 80px;
-            display: inline-block;
-        }
-        
-        .label {
+        .unit-value {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8em;
+            font-weight: 700;
+            color: white;
             display: block;
-            font-size: 1rem;
-            color: #aaa;
+            line-height: 1.2;
+        }
+        
+        .unit-label {
+            font-size: 0.7em;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-top: 5px;
+            letter-spacing: 1px;
+            color: rgba(255, 255, 255, 0.8);
         }
         
-        .years .number { color: #c80815; }
-        .months .number { color: #eeeeee; }
-        .weeks .number { color: #276FBF; }
-        .days .number { color: #F0A202; }
-        
-        .separator {
-            font-size: 2rem;
-            color: #555;
-            margin: 0 5px;
+        .fired-date {
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: rgba(255, 255, 255, 0.8);
         }
         
-        .subtext {
-            color: #888;
-            font-size: 1.1rem;
-            margin-top: 30px;
-            line-height: 1.6;
-        }
-        
-        .highlight {
-            color: #F0A202;
+        .fired-date span {
             font-weight: bold;
-        }
-        
-        .counter-animation {
-            animation: pulse 0.5s ease;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-        
-        @media (max-width: 768px) {
-            .timer-container {
-                padding: 30px 20px;
-            }
-            
-            h1 {
-                font-size: 2.2rem;
-            }
-            
-            .time-display {
-                font-size: 1.8rem;
-                padding: 20px 10px;
-            }
-            
-            .number {
-                font-size: 2.5rem;
-                min-width: 60px;
-            }
-            
-            .label {
-                font-size: 0.8rem;
-            }
-            
-            .time-unit {
-                margin: 0 8px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 1.8rem;
-            }
-            
-            .time-display {
-                font-size: 1.4rem;
-            }
-            
-            .number {
-                font-size: 2rem;
-                min-width: 45px;
-            }
-            
-            .label {
-                font-size: 0.7rem;
-            }
-            
-            .time-unit {
-                margin: 0 5px;
-            }
+            color: white;
         }
     </style>
 </head>
 <body>
-    <div class="timer-container">
-        <h1>Time Since Fired</h1>
+    <div class="timer-block">
+        <div class="total-days" id="total-days">0</div>
+        <span class="days-label">days since fired</span>
         
-        <div class="date-info">
-            Time elapsed since <span>January 31, 2023</span>
-        </div>
-        
-        <div class="time-display" id="timer">
-            <div class="time-unit years">
-                <span id="years" class="number">0</span>
-                <span class="label">Years</span>
-            </div>
-            
-            <span class="separator">:</span>
-            
-            <div class="time-unit months">
-                <span id="months" class="number">0</span>
-                <span class="label">Months</span>
-            </div>
-            
-            <span class="separator">:</span>
-            
-            <div class="time-unit weeks">
-                <span id="weeks" class="number">0</span>
-                <span class="label">Weeks</span>
-            </div>
-            
-            <span class="separator">:</span>
-            
-            <div class="time-unit days">
-                <span id="days" class="number">0</span>
-                <span class="label">Days</span>
+        <div class="breakdown">
+            <div class="breakdown-title">Time Breakdown</div>
+            <div class="time-units">
+                <div class="unit">
+                    <span class="unit-value" id="years">0</span>
+                    <span class="unit-label">Years</span>
+                </div>
+                <div class="unit">
+                    <span class="unit-value" id="months">0</span>
+                    <span class="unit-label">Months</span>
+                </div>
+                <div class="unit">
+                    <span class="unit-value" id="weeks">0</span>
+                    <span class="unit-label">Weeks</span>
+                </div>
+                <div class="unit">
+                    <span class="unit-value" id="days">0</span>
+                    <span class="unit-label">Days</span>
+                </div>
             </div>
         </div>
         
-        <p class="subtext">
-            Every second counts in your journey to new opportunities.<br>
-            This timer has been running for <span class="highlight" id="total-days">0</span> days total.
-        </p>
+        <div class="fired-date">
+            Since <span>January 31, 2023</span>
+        </div>
     </div>
     
     <script>
@@ -258,29 +153,23 @@
             let days = remainingDays % 7;
             
             return { 
+                totalDays,
                 years, 
                 months, 
                 weeks, 
-                days,
-                totalDays
+                days
             };
         }
         
         function updateTimer() {
-            const { years, months, weeks, days, totalDays } = calculateTimeDifference();
+            const { totalDays, years, months, weeks, days } = calculateTimeDifference();
             
-            // Update each element
+            // Update elements
+            document.getElementById("total-days").textContent = totalDays;
             document.getElementById("years").textContent = years;
             document.getElementById("months").textContent = months;
             document.getElementById("weeks").textContent = weeks;
             document.getElementById("days").textContent = days;
-            document.getElementById("total-days").textContent = totalDays;
-            
-            // Add animation to the days counter
-            document.getElementById("days").classList.add("counter-animation");
-            setTimeout(() => {
-                document.getElementById("days").classList.remove("counter-animation");
-            }, 500);
         }
         
         // Initial update
