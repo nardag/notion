@@ -1,147 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Countdown Timer</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Montserrat:900">
-  <style>
-    body {
-      background-color: black;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      margin: 0;
-      font-family: 'Lato', sans-serif;
-      position: relative; /* keeps absolute elements inside */
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Montserrat:900">
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Montserrat:900">
+    <a href="search_start.html"/a>
+    <title>Document</title>
+    <style>
 
-    #timer {
-      text-align: center;
-      text-transform: uppercase;
-      font-size: .4em;
-      letter-spacing: 5px;
-      z-index: 1; /* keep timer above decorations */
-    }
+body{
+    background-color: black;
+    justify-content: center;
+    align-items: center;
 
-    .days, .hours, .minutes, .seconds {
-      display: inline-block;
-      padding: 20px;
-      width: 100px;
-      border-radius: 5px;
-    }
+  
+#timer {
+  color: #eeeeee;
+  text-align: center;
+  align-items: center;
+  text-transform: uppercase;
+  font-family: 'Lato', sans-serif;
+  font-size: .4em;
+  letter-spacing: 5px;
+}
 
-    .days {
-      background: #c80815;
-      color: #000;
-    }
+.days, .hours, .minutes, .seconds {
+  display: inline-block;
+  padding: 20px;
+  width: 100px;
+  border-radius: 5px;
+}
 
-    .hours {
-      background: #eeeeee;
-      color: #000000;
-    }
+.days {
+  background: #c80815;
+}
 
-    .minutes {
-      background: #276FBF;
-      color: #000;
-    }
+.hours {
+  background: #eeeeee;
+  color: #000000;
+}
 
-    .seconds {
-      background: #F0A202;
-      color: #000;
-    }
+.minutes {
+  background: #276FBF;
+}
 
-    .numbers {
-      font-family: 'Montserrat', sans-serif;
-      color: #000000;
-      font-size: 4em;
-      text-align: center;
-    }
+.seconds {
+  background: #F0A202;
+}
 
-    /* Decorative blocks */
-    .white {
-      position: absolute;
-      background: #eeeeee;
-      height: 85px;
-      width: 75px;
-      left: 20%;
-      top: 10%;
-    }
+.numbers {
+  font-family: 'Montserrat', sans-serif;
+  color:  #000000;
+  font-size: 4em;
+  text-align: center;
+}
 
-    .red {
-      position: absolute;
-      background: #c80815;
-      height: 65px;
-      width: 70px;
-      right: 20%;
-      top: 15%;
-    }
+.white {
+  position: absolute;
+  background:  #eeeeee;
+  height: 85px;
+  width: 75px;
+  left: 30%;
+  top: 2%;
+}
 
-    .black {
-      position: absolute;
-      background: #000000;
-      height: 80px;
-      width: 80px;
-      left: 50%;
-      bottom: 15%;
-      transform: translateX(-50%);
-      border: 2px solid #c80815; /* optional: to make it visible */
-    }
+.red {
+  position: absolute;
+  background:  #c80815;
+  left: 18%;
+  top: 9%;
+  height: 65px;
+  width: 70px;
+ 
+}
 
-    a {
-      display: block;
-      margin-top: 20px;
-      color: #fff;
-      text-decoration: none;
-      font-size: 1em;
-    }
-  </style>
+.black {
+  position: absolute;
+  background:  #000000;
+  height: 80px;
+  width: 80px;
+  left: 60%;
+  top: 5%;
+
+
+}
+}
+
+    </style>
 </head>
 <body>
-  <!-- Decorative blocks -->
-  <div class="white"></div>
-  <div class="red"></div>
-  <div class="black"></div>
+    
+<div id="timer">
 
-  <!-- Timer -->
-  <div id="timer">
-    <div class="days">
-      <div id="days" class="numbers"></div>
-      days searching
-    </div>
-    <div class="hours">
-      <div id="hours" class="numbers"></div>
-      hours
-    </div>
-    <div class="minutes">
-      <div id="minutes" class="numbers"></div>
-      minutes
-    </div>
-    <div class="seconds">
-      <div id="seconds" class="numbers"></div>
-      seconds
-    </div>
-    <a href="search_start.html">Start Search</a>
-  </div>
+    <div class="days"> 
+        <div id="days" class="numbers "> </div>days searching</div> 
+     
+</div>
 
-  <script>
-    const myDate = new Date('August 28, 2025 00:00:00');
-
-    let timer = setInterval(function () {
-      const today = new Date().getTime();
-      const diff = Math.abs(today - myDate);
-
-      let days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      let hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      let minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      let seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-      document.getElementById("days").textContent = days;
-      document.getElementById("hours").textContent = hours;
-      document.getElementById("minutes").textContent = minutes;
-      document.getElementById("seconds").textContent = seconds;
-    }, 1000);
-  </script>
 </body>
+<script>
+    const year = new Date().getFullYear();
+const myDate = new Date('August 28, 2025 00:00:00');
+console.log(myDate);
+
+// countdown
+let timer = setInterval(function() {
+
+  // get today's date
+  const today = new Date().getTime();
+
+  // get the difference
+  const diff = Math.abs(today - myDate);
+
+  // math
+  let days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  let hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  let minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+  let seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+  // display
+  document.getElementById("days").innerHTML=days
+  document.getElementById("hours").innerHTML=hours
+  document.getElementById("minutes").innerHTML=minutes
+  document.getElementById("seconds").innerHTML=seconds
+
+
+
+}, 1);
+</script>
+
 </html>
