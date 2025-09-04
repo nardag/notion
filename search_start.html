@@ -139,9 +139,29 @@
             let diff = Math.abs(today - firedDate);
             
             // Calculate total days
-            let totalDays = Math.floor(diff / (1000 * 60 * 60 * 24));    
+            let totalDays = Math.floor(diff / (1000 * 60 * 60 * 24));
             
-            return totalDays
+            // Calculate years
+            let years = Math.floor(totalDays / 365);
+            let remainingDays = totalDays % 365;
+            
+            // Calculate months
+            let months = Math.floor(remainingDays / 30);
+            remainingDays = remainingDays % 30;
+            
+            // Calculate weeks
+            let weeks = Math.floor(remainingDays / 7);
+            
+            // Calculate remaining days
+            let days = remainingDays % 7;
+            
+            return { 
+                totalDays,
+                years, 
+                months, 
+                weeks, 
+                days
+            };
         }
         
         function updateTimer() {
