@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Time Since Fired</title>
+    <title>Time Since Birth</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Montserrat:900">
     <style>
         body {
@@ -143,15 +143,6 @@
                 <div class="unit-label">Months</div>
             </div>
             
-            <span class="separator">:</span>
-            
-            <!--div class="time-unit">
-                <div class="unit-value" id="weeks">0</div>
-                <div class="unit-label">Weeks</div>
-            </div-->
-           
-            <!--span class="separator">:</span-->
-            
             <div class="time-unit">
                 <div class="unit-value" id="days">0</div>
                 <div class="unit-label">Days</div>
@@ -200,8 +191,7 @@
 
         // Update the HTML elements with the calculated values
         document.getElementById('years').innerText = years;
-        document.getElementById('months').innerText = months;
-     //   document.getElementById('weeks').innerText = weeks;
+        document.getElementById('months').innerText = months;     
         document.getElementById('days').innerText = days;
         document.getElementById('total-days').innerText = totalDays;
         
