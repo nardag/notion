@@ -128,7 +128,7 @@
 <body>
     <div class="timer-line">
         <div class="total-days" id="total-days">0</div>
-        <div class="days-label">days since fired</div>
+        <div class="days-label">days lived</div>
         
         <div class="breakdown">
             <div class="time-unit">
@@ -145,12 +145,12 @@
             
             <span class="separator">:</span>
             
-            <div class="time-unit">
+            <!--div class="time-unit">
                 <div class="unit-value" id="weeks">0</div>
                 <div class="unit-label">Weeks</div>
-            </div>
-            
-            <span class="separator">:</span>
+            </div-->
+           
+            <!--span class="separator">:</span-->
             
             <div class="time-unit">
                 <div class="unit-value" id="days">0</div>
@@ -163,56 +163,60 @@
         Since <span>January 31, 2023</span>
     </div>
     
-  <script>
-    // Always use UTC-safe Date object (not just Date.UTC number)
-    const firedDate = new Date(Date.UTC(2023, 0, 31)); // Jan = 0
+<script>
+   // Constants for time conversion
+    const MS_PER_DAY = 1000 * 60 * 60 * 24;
 
-    function calculateTimeDifference() {
-        const today = new Date();
-        const todayUTC = new Date(Date.UTC(
-            today.getUTCFullYear(),
-            today.getUTCMonth(),
-            today.getUTCDate()
-        ));
+    /**
+     * Calculates the time elapsed since a given date and updates the UI.
+     */
+    function calculateTimeElapsed() {
+        const startDate = new Date('1995-09-13T00:00:00');
+        const now = new Date();
+        
+        // Calculate the difference in milliseconds and then convert to total days
+        const timeDifferenceMs = now.getTime() - startDate.getTime();
+        const totalDays = Math.floor(timeDifferenceMs / MS_PER_DAY);
 
-        // Difference in days
-        const diffMs = todayUTC - firedDate;
-        const totalDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-
-        // ---- Calendar breakdown ----
-        let years = todayUTC.getUTCFullYear() - firedDate.getUTCFullYear();
-        let months = todayUTC.getUTCMonth() - firedDate.getUTCMonth();
-        let days = todayUTC.getUTCDate() - firedDate.getUTCDate();
-
+        // --- Precise Breakdown of Years, Months, and Days ---
+        let years = now.getFullYear() - startDate.getFullYear();
+        let months = now.getMonth() - startDate.getMonth();
+        let days = now.getDate() - startDate.getDate();
+        
         if (days < 0) {
             months--;
-            const prevMonth = new Date(Date.UTC(todayUTC.getUTCFullYear(), todayUTC.getUTCMonth(), 0));
-            days += prevMonth.getUTCDate();
+            // Get the number of days in the previous month
+            const prevMonthDate = new Date(now.getFullYear(), now.getMonth(), 0);
+            days += prevMonthDate.getDate();
         }
-
+        
         if (months < 0) {
             years--;
             months += 12;
         }
 
-        const weeks = Math.floor(days / 7);
-        days = days % 7;
+        // --- Approximate breakdown for Weeks ---
+        const weeks = Math.floor(totalDays / 7);
 
-        return { totalDays, years, months, weeks, days };
+        // Update the HTML elements with the calculated values
+        document.getElementById('years').innerText = years;
+        document.getElementById('months').innerText = months;
+     //   document.getElementById('weeks').innerText = weeks;
+        document.getElementById('days').innerText = days;
+        document.getElementById('total-days').innerText = totalDays;
+        
+        // Update the last updated timestamp
+        document.getElementById('lastUpdated').innerText = `Last updated: ${now.toLocaleString()}`;
     }
 
-    function updateTimer() {
-        const { totalDays, years, months, weeks, days } = calculateTimeDifference();
+    // Call the function initially to display the values
+    calculateTimeElapsed();
 
-        document.getElementById("total-days").textContent = totalDays;
-        document.getElementById("years").textContent = years;
-        document.getElementById("months").textContent = months;
-        document.getElementById("weeks").textContent = weeks;
-        document.getElementById("days").textContent = days;
-    }
-
-    updateTimer();
+    // Set an interval to update the values every minute
+    setInterval(calculateTimeElapsed, 60000);
 </script>
+
+
 
 
 </body>
