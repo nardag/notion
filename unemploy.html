@@ -164,25 +164,28 @@
     </div>
     
   <script>
-    const firedDate = new Date(Date.UTC(2023, 0, 31)); // Jan = 0, UTC-safe
+    // Always use UTC-safe Date object (not just Date.UTC number)
+    const firedDate = new Date(Date.UTC(2023, 0, 31)); // Jan = 0
 
     function calculateTimeDifference() {
         const today = new Date();
-        const todayUTC = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate()));
+        const todayUTC = new Date(Date.UTC(
+            today.getUTCFullYear(),
+            today.getUTCMonth(),
+            today.getUTCDate()
+        ));
 
-        // Total days (still useful to display)
+        // Difference in days
         const diffMs = todayUTC - firedDate;
         const totalDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
 
-        // ---- Calendar math for years, months, days ----
+        // ---- Calendar breakdown ----
         let years = todayUTC.getUTCFullYear() - firedDate.getUTCFullYear();
         let months = todayUTC.getUTCMonth() - firedDate.getUTCMonth();
         let days = todayUTC.getUTCDate() - firedDate.getUTCDate();
 
-        // Adjust if negative
         if (days < 0) {
             months--;
-            // Get number of days in the previous month
             const prevMonth = new Date(Date.UTC(todayUTC.getUTCFullYear(), todayUTC.getUTCMonth(), 0));
             days += prevMonth.getUTCDate();
         }
@@ -192,32 +195,25 @@
             months += 12;
         }
 
-        // Weeks from the leftover days
         const weeks = Math.floor(days / 7);
         days = days % 7;
 
-        return { 
-            totalDays,
-            years, 
-            months, 
-            weeks, 
-            days
-        };
+        return { totalDays, years, months, weeks, days };
     }
 
     function updateTimer() {
         const { totalDays, years, months, weeks, days } = calculateTimeDifference();
-        
+
         document.getElementById("total-days").textContent = totalDays;
         document.getElementById("years").textContent = years;
         document.getElementById("months").textContent = months;
         document.getElementById("weeks").textContent = weeks;
         document.getElementById("days").textContent = days;
     }
-    
+
     updateTimer();
-    setInterval(updateTimer, 1000);
 </script>
+
 
 </body>
 </html>
